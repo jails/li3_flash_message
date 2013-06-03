@@ -1,0 +1,23 @@
+{
+    "name": "jails/li3_flash_message",
+    "type": "lithium-library",
+    "description": "Provides a straightforward interface for displaying status messages to the user.",
+    "keywords": ["php", "message", "lithium", "li3"],
+    "homepage": "https://github.com/jails/li3_flash_message",
+    "license": "BSD-3-Clause",
+    "minimum-stability": "dev",
+    "authors": [
+        {
+            "name": "Simon JAILLET",
+            "homepage": "https://github.com/jails"
+        },
+        {
+            "name": "Community",
+            "homepage": "http://github.com/jails/li3_flash_message/graphs/contributors"
+        }
+    ],
+    "require": {
+        "php": ">=5.4",
+        "composer/installers": "dev-master"
+    }
+}

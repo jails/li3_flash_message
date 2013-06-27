@@ -118,12 +118,12 @@ class FlashMessage extends \lithium\core\StaticObject {
 	 * Writes a flash message.
 	 *
 	 * @todo Add closure support to messages
-	 * @param mixed $msg Message the message to be stored.
+	 * @param mixed $message Message the message to be stored.
 	 * @param array $attrs Optional attributes that will be available in the view.
 	 * @param string $key Optional key to store multiple flash messages.
 	 * @return boolean True on successful write, false otherwise.
 	 */
-	public static function write($msg, array $attrs = array(), $key = 'flash_message') {
+	public static function write($message, array $attrs = array(), $key = 'flash_message') {
 		$session = static::$_classes['session'];
 		$key = static::_key($key);
 		$name = static::$_session['config'];
@@ -133,22 +133,31 @@ class FlashMessage extends \lithium\core\StaticObject {
 			static::$_messages = file_exists($path) ? include $path : array();
 		}
 
-		$message = (array) $msg;
-
-		foreach ($message as $index => $value) {
-			if (isset(static::$_messages[$value])) {
-				$value = static::$_messages[$value];
-			}
-			$message[$index] = String::insert($value, $attrs);
-		}
-
-		if (is_string($msg)) {
-			$message = reset($message);
-		}
+		$message = static::_translate($message, $attrs);
 
 		return $session::write($key, compact('message', 'attrs'), compact('name'));
 	}
 
+	/**
+	 * Recursive message translation.
+	 *
+	 * @param mixed $message Message the message to be stored.
+	 * @param array $attrs Optional attributes that will be available in the view.
+	 * @return array
+	 */
+	protected static function _translate($message, array $attrs) {
+		if (is_string($message)) {
+			if (isset(static::$_messages[$message])) {
+				$message = static::$_messages[$message];
+			}
+			$message = String::insert($message, $attrs);
+		} elseif (is_array($message)) {
+			foreach ($message as $index => $value) {
+				$message[$index] = static::_translate($value, $attrs);
+			}
+		}
+		return $message;
+	}
 	/**
 	 * Reads a flash message.
 	 *

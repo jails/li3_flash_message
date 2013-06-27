@@ -188,6 +188,29 @@ class FlashMessageTest extends \lithium\test\Unit {
 		$this->assertEqual($expected, $result);
 	}
 
+	public function testNestedArrayAsMessage() {
+		$messages = array(
+			'name' => array(
+				'Name is required.'
+			),
+			'email' => array(
+				'Email can\'t be empty.',
+				'Email is invalid.'
+			),
+			'phone' => array(
+				'Invalid phone number.'
+			)
+		);
+		FlashMessage::write($messages);
+
+		$expected = array(
+			'message' => $messages,
+			'attrs' => array()
+		);
+		$result = FlashMessage::read('flash_message');
+		$this->assertEqual($expected, $result);
+	}
+
 	public function testMessageTranslation() {
 		$testApp = Libraries::get(true, 'resources') . '/tmp/tests/test_app';
 		mkdir($testApp . '/config', 0777, true);

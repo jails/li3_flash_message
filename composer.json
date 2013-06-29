@@ -1,0 +1,26 @@
+{
+    "name": "uor/li3_flash_message",
+    "description": "The Flash Message plugin for Lithium provides a straightforward interface for displaying status messages to the user.",
+    "type": "lithium-library",
+    "version": "dev-master",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "The Lithium Community",
+            "homepage": "http://github.com/uor/li3_flash_message/graphs/contributors"
+	},
+        {
+            "name": "Michael Hüneburg",
+            "email": "hello@michaelhue.com",
+            "homepage": "http://michaelhue.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "composer/installers": "*"
+    },
+    "suggest": {
+        "UnionOfRAD/lithium": "Lithium is required for this plugin."
+    },
+    "minimum-stability": "dev"
+}
